@@ -1,0 +1,39 @@
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, button, select, option, p, span, tr, th, td{
+    margin: 0;
+    padding: 0;
+    font-family: "PingFang SC", "Microsoft Yahei";
+    /*font-size: 12px;*/
+}
+ul, ol, li{
+    list-style-type: none;
+}
+img{
+    border: none;
+}
+i, em{
+    display: inline-block;
+    font-style: normal;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: normal;
+}
+input, button, textarea{
+    border: 0;
+    outline: 0;
+}
+a, u{
+    text-decoration: none;
+}
+input[type=number] {  
+    -moz-appearance:textfield;  
+}  
+input[type=number]::-webkit-inner-spin-button,  
+input[type=number]::-webkit-outer-spin-button {  
+    -webkit-appearance: none;  
+    margin: 0;  
+}  
+
+html,body{
+    height: 100%;
+}
+
