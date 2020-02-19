@@ -32,7 +32,8 @@ class Upload {
             accept: '*',
             multiple: false,
             maxSize: Infinity,
-            maxNum: Infinity
+            maxNum: Infinity,
+            timeout: 60000
         }, options);
 
         this.autoUpload = true;
@@ -185,7 +186,7 @@ class Upload {
                 cancelToken: new CancelToken(function executor(cancel) {
                     _this.cancelQueue.push(cancel);
                 }),
-                timeout: 30000
+                timeout: _this.config.timeout
             }).then(res => {
                 if (res.data._errCode === '0') {
                     resolve({

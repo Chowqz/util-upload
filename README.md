@@ -10,7 +10,7 @@ import Upload from '../src/index.js'
 ```bash
 <div id="uploadBox"></div>
 
-//  vue中使用时注意dom渲染完成后中，再初始化实例对象
+//  vue中使用时注意dom渲染完成后，再初始化实例对象
 const uploadInstance = new Upload(document.getElementById("uploadBox"), {
     url: 'http://localhost:3456/upload',
     fileKey: 'file',
@@ -36,6 +36,7 @@ accept|支持接受的文件类型，同原生input的accept属性|String|否|�
 multiple|是否支持文件多选上传|Boolean|否|true/false|false
 maxNum|限制的最大文件个数|Number|否|-|Infinity
 maxSize|限制的最大文件大小（单位字节）|Number|否|-|Infinity
+timeout|上传请求超时时间（单位ms）|Number|否|-|60000
 
 #### 选择文件并上传
 ```bash

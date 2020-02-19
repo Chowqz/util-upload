@@ -34,14 +34,15 @@ export default {
         this.uploadInstance = new Upload(this.$refs.uploadBox, {
             url: 'http://localhost:3456/upload',
             // url: 'https://mng-api-saas.huishoubao.com/asset/image/upload'
-            fileKey: 'file',
-            uploadParams: {
-                merchantCode: '123456'
-            },
-            accept: 'image/*',
-            multiple: true,
+            // fileKey: 'file',
+            // uploadParams: {
+            //     merchantCode: '123456'
+            // },
+            // accept: 'image/*',
+            // multiple: true,
             // maxNum: 2,
-            maxSize: 102400000
+            // maxSize: 102400000,
+            // timeout: 10000
         });
     },
     methods: {
@@ -49,6 +50,7 @@ export default {
             this.uploadInstance.uploadImmed((err, res) => {
                 if (err) {
                     console.log('uploadImmed:' + err);
+                    alert(err)
                     return;
                 }
                 console.log(res);
