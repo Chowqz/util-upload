@@ -37,7 +37,7 @@ multiple|是否支持文件多选上传|Boolean|否|true/false|false
 maxNum|限制的最大文件个数|Number|否|-|Infinity
 maxSize|限制的最大文件大小（单位字节）|Number|否|-|Infinity
 
-####选择文件并上传####
+#### 选择文件并上传
 ```bash
 // 调用实例方法uploadImmed
 uploadInstance.uploadImmed((err, res) => {
@@ -57,7 +57,7 @@ uploadInstance.uploadImmed((err, res) => {
 }]
 ```
 
-####选择文件先预览，然后再上传####
+#### 选择文件先预览，然后再上传
 ```bash
 // 实例方法uploadDefer选择文件并读取文件信息
 uploadInstance.uploadDefer((err, res) => {
@@ -105,15 +105,17 @@ uploadInstance.submitUpload((err, res) => {
 }]
 ```
 
-####终止上传####
+#### 终止上传
 ```bash
 // 调用实例方法abort
 uploadInstance.abort();
 // 终止上传请求后会在uploadImmed或者submitUpload的回调里抛出错误
 ```
 
-####上传进度####
+#### 上传进度
 ```bash
 // 访问实例属性complete获取上传进度（值0~100，如果一次选择多个文件，该进度是总的进度）
 uploadInstance.complete
 ```
+
+
