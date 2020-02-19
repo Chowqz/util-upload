@@ -50,7 +50,6 @@ export default {
             this.uploadInstance.uploadImmed((err, res) => {
                 if (err) {
                     console.log('uploadImmed:' + err);
-                    alert(err)
                     return;
                 }
                 console.log(res);

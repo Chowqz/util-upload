@@ -41,7 +41,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
             url: 'http://localhost:3456/' + req.file.filename
         },
         _errCode: '0',
-        _errMsg: 'success'
+        _errStr: 'success'
     })
 })
 

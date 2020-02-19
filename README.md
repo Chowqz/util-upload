@@ -28,7 +28,7 @@ const uploadInstance = new Upload(document.getElementById("uploadBox"), {
 ### **Options**
 
 参数|说明|类型|必选|可选值|默认值
--|-|-|-|-|-
+---|---|---|---|---|---
 url|上传的url链接|String|是|-|''
 fileKey|上传的文件键名|String|否|-|file
 uploadParams|上传时传给后端的其他参数|Object|否|-|{}
@@ -37,6 +37,7 @@ multiple|是否支持文件多选上传|Boolean|否|true/false|false
 maxNum|限制的最大文件个数|Number|否|-|Infinity
 maxSize|限制的最大文件大小（单位字节）|Number|否|-|Infinity
 timeout|上传请求超时时间（单位ms）|Number|否|-|60000
+
 
 #### 选择文件并上传
 ```bash
@@ -97,6 +98,7 @@ uploadInstance.submitUpload((err, res) => {
 	}
 	console.log(res);
 })
+
 // res返回结果
 [{
 	url: "http://localhost:3456/P80319-190143-1582089625020.jpg"
