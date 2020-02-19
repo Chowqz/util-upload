@@ -30,15 +30,17 @@ const upload = multer({
     storage: storage
 });
 
-app.post('/upload', upload.array('file', 10), (req, res) => {
-    let fileInfo = req.files.map(item => {
-        return {
-            url: 'http://localhost:3456/' + item.filename
-        }
-    })
+app.post('/upload', upload.single('file'), (req, res) => {
+    // let fileInfo = req.files.map(item => {
+    //     return {
+    //         url: 'http://localhost:3456/' + item.filename
+    //     }
+    // })
     res.json({
-        _data: fileInfo,
-        _errCode: 0,
+        data: {
+            url: 'http://localhost:3456/' + req.file.filename
+        },
+        _errCode: '0',
         _errMsg: 'success'
     })
 })

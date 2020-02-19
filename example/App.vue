@@ -31,12 +31,14 @@ export default {
 
     },
     mounted() {
-        this.uploadInstance = new Upload({
-            el: this.$refs.uploadBox,
+        this.uploadInstance = new Upload(this.$refs.uploadBox, {
             url: 'http://localhost:3456/upload',
+            // url: 'https://mng-api-saas.huishoubao.com/asset/image/upload'
             fileKey: 'file',
+            uploadParams: {
+                merchantCode: '123456'
+            },
             accept: 'image/*',
-            autoUpload: false,
             multiple: true,
             // maxNum: 2,
             maxSize: 102400000
@@ -53,7 +55,7 @@ export default {
                 this.picList = res.map(item => {
                     return {
                         name: item.name,
-                        url: item.uploadRes[0].url
+                        url: item.url
                     }
                 })
             });
@@ -83,7 +85,7 @@ export default {
                 this.picList = res.map(item => {
                     return {
                         name: item.name,
-                        url: item.uploadRes[0].url
+                        url: item.url
                     }
                 })
             });

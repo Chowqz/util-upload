@@ -23,18 +23,19 @@ const EventUtil = {
 }
 
 class Upload {
-    constructor(options = {}) {
-        this.parentWrapper = options.el;
+    constructor(el, options = {}) {
+        this.parentWrapper = el;
         this.config = Object.assign({
             url: '',
-            fileKey: '',
+            fileKey: 'file',
+            uploadParams: {},
             accept: '*',
             multiple: false,
-            autoUpload: true,
             maxSize: Infinity,
             maxNum: Infinity
         }, options);
 
+        this.autoUpload = true;
         this.uploadInput = null;
         this.fileList = [];
         this.isUploading = false;
@@ -84,10 +85,9 @@ class Upload {
                 return;
             }
 
-            if (this.config.autoUpload || this.uploadImmedCallback) {
+            if (this.autoUpload) {
                 this.submitUpload((err, res) => {
                     this.callbackHandler(err, res);
-                    this.uploadImmedCallback = null;
                 })
             } else {
                 this.readFileBatch(this.fileList);
@@ -97,28 +97,25 @@ class Upload {
     callbackHandler(err, res) {
         this.uploadImmedCallback && this.uploadImmedCallback(err, res);
         this.readFileCallback && this.readFileCallback(err, res);
-
-        this.uploadImmedCallback = null;
-        this.readFileCallback = null;
     }
     uploadImmed(cb) {
+        this.autoUpload = true;
         this.readFileCallback = null;
         this.uploadImmedCallback = cb;
-        this.chooseFile();
+        this.abort();
+        this.uploadInput.click();
     }
     uploadDefer(cb) {
+        this.autoUpload = false;
         this.uploadImmedCallback = null;
         this.readFileCallback = cb;
-        this.chooseFile();
-    }
-    chooseFile() {
-        this.reset();
+        this.abort();
         this.uploadInput.click();
     }
     abort() {
         this.reset();
         this.cancelQueue.map(cancel => {
-            cancel();
+            cancel('取消当前上传请求');
         })
         this.cancelQueue = [];
     }
@@ -174,6 +171,10 @@ class Upload {
             const uploadData = new FormData();
             uploadData.append(this.config.fileKey, fileInfo.file);
 
+            for(let k in this.config.uploadParams) {
+                uploadData.append(k, this.config.uploadParams[k]);
+            }
+
             axios.post(this.config.url, uploadData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -183,17 +184,18 @@ class Upload {
                 },
                 cancelToken: new CancelToken(function executor(cancel) {
                     _this.cancelQueue.push(cancel);
-                })
+                }),
+                timeout: 30000
             }).then(res => {
-                if (res.data._errCode === 0) {
+                if (res.data._errCode === '0') {
                     resolve({
-                        uploadRes: res.data._data,
+                        url: res.data.data.url,
                         name: fileInfo.name,
                         ext: fileInfo.ext,
                         size: fileInfo.size
                     });
                 } else {
-                    reject(res.data.message);
+                    reject(res.data._errStr);
                 }
             }).catch(err => {
                 reject(err)
