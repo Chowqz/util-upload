@@ -4,18 +4,23 @@
 
 ### **Usage**
 ``` bash
-import Upload from '../src/index.js'
+import Upload from 'src/upload/index.js'
 ```
 ### **Init**
 ```bash
 <div id="uploadBox"></div>
 
 //  vue中使用时注意dom渲染完成后，再初始化实例对象
+
+
 const uploadInstance = new Upload(document.getElementById("uploadBox"), {
     url: 'http://localhost:3456/upload',
     fileKey: 'file',
     uploadParams: {
         merchantCode: '123456'
+    },
+    headers: {
+        'Authentication-Token': 'token123456'
     },
     accept: 'image/*',
     autoUpload: false,
@@ -32,6 +37,7 @@ const uploadInstance = new Upload(document.getElementById("uploadBox"), {
 url|上传的url链接|String|是|-|''
 fileKey|上传的文件键名|String|否|-|file
 uploadParams|上传时传给后端的其他参数|Object|否|-|{}
+headers|上传时请求头配置|Object|否|-|{}
 accept|支持接受的文件类型，同原生input的accept属性|String|否|同原生input的accept属性|*
 multiple|是否支持文件多选上传|Boolean|否|true/false|false
 maxNum|限制的最大文件个数|Number|否|-|Infinity
@@ -43,19 +49,19 @@ timeout|上传请求超时时间（单位ms）|Number|否|-|60000
 ```bash
 // 调用实例方法uploadImmed
 uploadInstance.uploadImmed((err, res) => {
-	if (err) {
-		console.log('uploadImmed:' + err);
-		return;
-	}
-	console.log(res);
+    if (err) {
+        console.log('uploadImmed:' + err);
+        return;
+    }
+    console.log(res);
 })
 
 // res返回结果
 [{
-	url: "http://localhost:3456/P80804-192532-1582089100283.jpg"
-	name: "P80804-192532.jpg"
-	ext: "jpg"
-	size: 2638003
+    url: "http://localhost:3456/P80804-192532-1582089100283.jpg"
+    name: "P80804-192532.jpg"
+    ext: "jpg"
+    size: 2638003
 }]
 ```
 
@@ -63,11 +69,11 @@ uploadInstance.uploadImmed((err, res) => {
 ```bash
 // 实例方法uploadDefer选择文件并读取文件信息
 uploadInstance.uploadDefer((err, res) => {
-	if (err) {
-		console.log('uploadDefer:' + err);
-		return;
-	}
-	console.log(res);
+    if (err) {
+        console.log('uploadDefer:' + err);
+        return;
+    }
+    console.log(res);
 })
 
 // res返回的结果
@@ -92,19 +98,19 @@ uploadInstance.uploadDefer((err, res) => {
 
 // 再次调用实例方法submitUpload直接上传文件
 uploadInstance.submitUpload((err, res) => {
-	if (err) {
-		console.log('submitUpload:' + err);
-		return;
-	}
-	console.log(res);
+    if (err) {
+        console.log('submitUpload:' + err);
+        return;
+    }
+    console.log(res);
 })
 
 // res返回结果
 [{
-	url: "http://localhost:3456/P80319-190143-1582089625020.jpg"
-	name: "P80319-190143.jpg"
-	ext: "jpg"
-	size: 2179371
+    url: "http://localhost:3456/P80319-190143-1582089625020.jpg"
+    name: "P80319-190143.jpg"
+    ext: "jpg"
+    size: 2179371
 }]
 ```
 
@@ -115,10 +121,14 @@ uploadInstance.abort();
 // 终止上传请求后会在uploadImmed或者submitUpload的回调里抛出错误
 ```
 
-#### 上传进度
+#### 上传进度（只读）
 ```bash
 // 访问实例属性complete获取上传进度（值0~100，如果一次选择多个文件，该进度是总的进度）
 uploadInstance.complete
+```
+#### 是否正在上传中（只读）
+```bash
+uploadInstance.isUploading    // true or false
 ```
 
 
