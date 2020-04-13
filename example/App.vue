@@ -17,7 +17,9 @@
 </template>
 <script>
 import './reset.css';
-import Upload from '../src/index.js'
+// import Upload from '../src/index.js'
+// import Upload from '../dist/util-upload.js'
+const Upload = require('../dist/util-upload.js');
 
 export default {
     data() {
@@ -28,21 +30,20 @@ export default {
         }
     },
     created() {
-
+        
     },
     mounted() {
         this.uploadInstance = new Upload(this.$refs.uploadBox, {
             url: 'http://localhost:3456/upload',
-            // url: 'https://mng-api-saas.huishoubao.com/asset/image/upload'
-            // fileKey: 'file',
-            // uploadParams: {
-            //     merchantCode: '123456'
-            // },
-            // accept: 'image/*',
-            // multiple: true,
-            // maxNum: 2,
-            // maxSize: 102400000,
-            // timeout: 10000
+            fileKey: 'file',
+            uploadParams: {
+                merchantCode: '123456'
+            },
+            accept: 'image/*',
+            multiple: true,
+            maxNum: 2,
+            maxSize: 102400000,
+            timeout: 10000
         });
     },
     methods: {

@@ -31,11 +31,6 @@ const upload = multer({
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
-    // let fileInfo = req.files.map(item => {
-    //     return {
-    //         url: 'http://localhost:3456/' + item.filename
-    //     }
-    // })
     res.json({
         data: {
             url: 'http://localhost:3456/' + req.file.filename
